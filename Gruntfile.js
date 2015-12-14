@@ -1,11 +1,13 @@
 require('babel/register')(require('./src/optimize/babelOptions').node);
 
 module.exports = function (grunt) {
+  var pkgConf = grunt.file.readJSON('package.json');
+
   // set the config once before calling load-grunt-config
   // and once during so that we have access to it via
   // grunt.config.get() within the config files
   var config = {
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: pkgConf,
     root: __dirname,
     src: __dirname + '/src',
     build: __dirname + '/build', // temporary build directory
@@ -31,6 +33,9 @@ module.exports = function (grunt) {
     }()),
 
     nodeVersion: grunt.file.read('.node-version').trim(),
+
+    kibanaVersion: pkgConf.version.split('-reshin-', 1)[0], // the base kibana version number in front of '-reshin-...'
+    reshinVersion: pkgConf.version.split('-reshin-', 2)[1], // the reshin version after '-reshin-...'
 
     meta: {
       banner: '/*! <%= package.name %> - v<%= package.version %> - ' +
@@ -62,6 +67,56 @@ module.exports = function (grunt) {
       'postcss-minify-selectors': '1.4.6',
       'postcss-single-charset': '0.3.0',
       'regenerator': '0.8.36'
+    },
+
+    untar: {
+      dist: {
+        files: {
+          '<%= target %>/kibana-<%= pkg.version %>-darwin-x64': '<%= target %>/kibana-<%= pkg.version %>-darwin-x64.tar.gz',
+        }
+      }
+    },
+
+    maven: {
+      options: {
+        groupId: 'org.reshin.kibana',
+        artifactId: 'kibana-<%= kibanaVersion %>-reshin',
+        version: '<%= reshinVersion %>',
+        packaging: 'zip',
+        injectDestFolder: false
+      },
+      install: {
+        options: {
+          goal: 'install'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/src/public/',
+        src: [ '**/*' ],
+        dest: 'kibana-<%= pkg.version %>'
+      },
+      deploy: {
+        options: {
+          goal: 'deploy',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
+          repositoryId: 'folge3.nexus.snapshot'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/src/public/',
+        src: [ '**/*' ],
+        dest: 'kibana-<%= pkg.version %>'
+      },
+      release: {
+        options: {
+          goal: 'release',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
+          repositoryId: 'folge3.nexus.release',
+          gitpush: true
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/src/public/',
+        src: [ '**/*' ],
+        dest: 'kibana-<%= pkg.version %>'
+      }
     }
   };
 
@@ -87,4 +142,8 @@ module.exports = function (grunt) {
   // load task definitions
   grunt.task.loadTasks('tasks');
   grunt.task.loadTasks('tasks/build');
+  grunt.loadNpmTasks('grunt-untar', 'grunt-maven-tasks');
+  grunt.registerTask('install', [ 'build', 'untar', 'maven:install' ]);
+  grunt.registerTask('deploy', [ 'build', 'untar', 'maven:deploy' ]);
+  grunt.registerTask('release', [ 'build', 'test', 'untar', 'maven:release' ]);
 };
