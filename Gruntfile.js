@@ -90,7 +90,7 @@ module.exports = function (grunt) {
           goal: 'install'
         },
         expand: true,
-        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/src/public/',
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
         dest: 'kibana-<%= pkg.version %>'
       },
@@ -101,7 +101,7 @@ module.exports = function (grunt) {
           repositoryId: 'folge3.nexus.snapshot'
         },
         expand: true,
-        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/src/public/',
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
         dest: 'kibana-<%= pkg.version %>'
       },
@@ -113,7 +113,7 @@ module.exports = function (grunt) {
           gitpush: true
         },
         expand: true,
-        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/src/public/',
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
         dest: 'kibana-<%= pkg.version %>'
       }
