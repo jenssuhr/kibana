@@ -1,0 +1,4 @@
+optimize:
+  sourceMaps: '#cheap-source-map' # options -> http://webpack.github.io/docs/configuration.html#devtool
+  unsafeCache: true
+  lazyPrebuild: false
