@@ -1,8 +1,10 @@
 # Kibana is served by a back end server. This controls which port to use.
+#++ AUTOMATICALLY REPLACED BY RESHIN
 # server.port: 5601
+#-- AUTOMATICALLY REPLACED BY RESHIN
 
 # The host to bind the server to.
-# server.host: "0.0.0.0"
+server.host: "127.0.0.1"
 
 # If you are running kibana behind a proxy, and want to mount it at a path,
 # specify that path here. The basePath can't end in a slash.
@@ -64,7 +66,7 @@ elasticsearch.url: "http://localhost:9006/els"
 pid.file: "kibana.pid"
 
 # If you would like to send the log output to a file you can set the path below.
-# logging.dest: stdout
+logging.dest: "logs/kibana.log"
 
 # Set this to true to suppress all logging output.
 # logging.silent: false
