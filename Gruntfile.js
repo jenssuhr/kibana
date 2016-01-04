@@ -108,9 +108,10 @@ module.exports = function (grunt) {
       release: {
         options: {
           goal: 'release',
-          url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
           repositoryId: 'folge3.nexus.release',
-          gitpush: true
+          gitpush: true,
+          gitpushtag: true
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
