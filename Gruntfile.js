@@ -34,8 +34,8 @@ module.exports = function (grunt) {
 
     nodeVersion: grunt.file.read('.node-version').trim(),
 
-    kibanaVersion: pkgConf.version.split('-reshin-', 1)[0], // the base kibana version number in front of '-reshin-...'
-    reshinVersion: pkgConf.version.split('-reshin-', 2)[1], // the reshin version after '-reshin-...'
+    kibanaVersion: pkgConf.name.split('-', 2)[1], // kibana-<version>-reshin
+    reshinVersion: pkgConf.version,
 
     meta: {
       banner: '/*! <%= package.name %> - v<%= package.version %> - ' +
@@ -146,4 +146,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-untar', 'grunt-maven-tasks');
   grunt.registerTask('install', [ 'build', 'untar', 'maven:install' ]);
   grunt.registerTask('deploy', [ 'build', 'untar', 'maven:deploy' ]);
+  grunt.registerTask('release', [ 'build', 'untar', 'maven:release' ]);
 };
