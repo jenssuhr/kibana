@@ -146,5 +146,4 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-untar', 'grunt-maven-tasks');
   grunt.registerTask('install', [ 'build', 'untar', 'maven:install' ]);
   grunt.registerTask('deploy', [ 'build', 'untar', 'maven:deploy' ]);
-  grunt.registerTask('release', [ 'build', 'untar', 'maven:release' ]);
 };
