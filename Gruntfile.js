@@ -73,6 +73,9 @@ module.exports = function (grunt) {
       dist: {
         files: {
           '<%= target %>/kibana-<%= pkg.version %>-darwin-x64': '<%= target %>/kibana-<%= pkg.version %>-darwin-x64.tar.gz',
+          '<%= target %>/kibana-<%= pkg.version %>-linux-x64': '<%= target %>/kibana-<%= pkg.version %>-linux-x64.tar.gz',
+          '<%= target %>/kibana-<%= pkg.version %>-linux-x86': '<%= target %>/kibana-<%= pkg.version %>-linux-x86.tar.gz',
+          '<%= target %>/kibana-<%= pkg.version %>-windows': '<%= target %>/kibana-<%= pkg.version %>-windows.tar.gz'
         }
       }
     },
@@ -85,23 +88,91 @@ module.exports = function (grunt) {
         packaging: 'zip',
         injectDestFolder: false
       },
-      install: {
+      installOsX: {
         options: {
-          goal: 'install'
+          goal: 'install',
+          classifier: 'darwin-x64'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
         dest: '<%= package.name %>-<%= pkg.version %>'
       },
-      deploy: {
+      installLinuxx64: {
+        options: {
+          goal: 'install',
+          classifier: 'linux-x64'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x64/kibana-<%= pkg.version %>-linux-x64/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      installLinuxx86: {
+        options: {
+          goal: 'install',
+          classifier: 'linux-x86'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x86/kibana-<%= pkg.version %>-linux-x86/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      installWindows: {
+        options: {
+          goal: 'install',
+          classifier: 'windows'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-windows/kibana-<%= pkg.version %>-windows/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      deployOsX: {
         options: {
           goal: 'deploy',
+          classifier: 'darwin-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
           repositoryId: 'folge3.nexus.snapshot'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      deployLinuxx64: {
+        options: {
+          goal: 'deploy',
+          classifier: 'linux-x64',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
+          repositoryId: 'folge3.nexus.snapshot'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x64/kibana-<%= pkg.version %>-linux-x64/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      deployLinuxx86: {
+        options: {
+          goal: 'deploy',
+          classifier: 'linux-x86',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
+          repositoryId: 'folge3.nexus.snapshot'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x86/kibana-<%= pkg.version %>-linux-x86/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      deployWindows: {
+        options: {
+          goal: 'deploy',
+          classifier: 'windows',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
+          repositoryId: 'folge3.nexus.snapshot'
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-windows/kibana-<%= pkg.version %>-windows/',
         src: [ '**/*' ],
         dest: '<%= package.name %>-<%= pkg.version %>'
       },
@@ -144,7 +215,7 @@ module.exports = function (grunt) {
   grunt.task.loadTasks('tasks');
   grunt.task.loadTasks('tasks/build');
   grunt.loadNpmTasks('grunt-untar', 'grunt-maven-tasks');
-  grunt.registerTask('install', [ 'build', 'untar', 'maven:install' ]);
-  grunt.registerTask('deploy', [ 'build', 'untar', 'maven:deploy' ]);
-  grunt.registerTask('release', [ 'build', 'untar', 'maven:release' ]);
+  grunt.registerTask('install', [ 'build', 'untar', 'maven:installOsX', 'maven:installLinuxx64', 'maven:installLinuxx86', 'maven:installWindows' ]);
+  grunt.registerTask('deploy', [ 'build', 'untar', 'maven:deployOsX', 'maven:deployLinuxx64', 'maven:deployLinuxx86', 'maven:deployWindows' ]);
+  grunt.registerTask('release', [ 'build', 'untar', 'maven:releaseOsX', 'maven:releaseLinuxx64', 'maven:releaseLinuxx86', 'maven:releaseWindows' ]);
 };
