@@ -80,8 +80,8 @@ module.exports = function (grunt) {
     maven: {
       options: {
         groupId: 'org.reshin.kibana',
-        artifactId: 'kibana-<%= kibanaVersion %>-reshin',
-        version: '<%= reshinVersion %>',
+        artifactId: '<%= package.name %>',
+        version: '<%= pkg.version %>',
         packaging: 'zip',
         injectDestFolder: false
       },
@@ -92,7 +92,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
-        dest: 'kibana-<%= pkg.version %>'
+        dest: '<%= package.name %>-<%= pkg.version %>'
       },
       deploy: {
         options: {
@@ -103,7 +103,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
-        dest: 'kibana-<%= pkg.version %>'
+        dest: '<%= package.name %>-<%= pkg.version %>'
       },
       release: {
         options: {
@@ -116,7 +116,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
         src: [ '**/*' ],
-        dest: 'kibana-<%= pkg.version %>'
+        dest: '<%= package.name %>-<%= pkg.version %>'
       }
     }
   };
