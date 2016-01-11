@@ -178,12 +178,10 @@ module.exports = function (grunt) {
       },
       releaseOsX: {
         options: {
-          goal: 'release',
+          goal: 'deploy',
           classifier: 'darwin-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
-          repositoryId: 'folge3.nexus.release',
-          gitpush: false,
-          gitpushtag: false
+          repositoryId: 'folge3.nexus.release'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
@@ -192,12 +190,10 @@ module.exports = function (grunt) {
       },
       releaseLinuxx64: {
         options: {
-          goal: 'release',
+          goal: 'deploy',
           classifier: 'linux-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
-          repositoryId: 'folge3.nexus.release',
-          gitpush: false,
-          gitpushtag: false
+          repositoryId: 'folge3.nexus.release'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x64/kibana-<%= pkg.version %>-linux-x64/',
@@ -206,12 +202,10 @@ module.exports = function (grunt) {
       },
       releaseLinuxx86: {
         options: {
-          goal: 'release',
+          goal: 'deploy',
           classifier: 'linux-x86',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
-          repositoryId: 'folge3.nexus.release',
-          gitpush: false,
-          gitpushtag: false
+          repositoryId: 'folge3.nexus.release'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x86/kibana-<%= pkg.version %>-linux-x86/',
@@ -220,12 +214,10 @@ module.exports = function (grunt) {
       },
       releaseWindows: {
         options: {
-          goal: 'release',
+          goal: 'deploy',
           classifier: 'windows',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
-          repositoryId: 'folge3.nexus.release',
-          gitpush: false,
-          gitpushtag: false
+          repositoryId: 'folge3.nexus.release'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-windows/kibana-<%= pkg.version %>-windows/',
