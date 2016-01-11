@@ -176,16 +176,59 @@ module.exports = function (grunt) {
         src: [ '**/*' ],
         dest: '<%= package.name %>-<%= pkg.version %>'
       },
-      release: {
+      releaseOsX: {
         options: {
           goal: 'release',
+          classifier: 'darwin-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
           repositoryId: 'folge3.nexus.release',
-          gitpush: true,
-          gitpushtag: true
+          gitpush: false,
+          gitpushtag: false
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      releaseLinuxx64: {
+        options: {
+          goal: 'release',
+          classifier: 'linux-x64',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
+          repositoryId: 'folge3.nexus.release',
+          gitpush: false,
+          gitpushtag: false
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x64/kibana-<%= pkg.version %>-linux-x64/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      releaseLinuxx86: {
+        options: {
+          goal: 'release',
+          classifier: 'linux-x86',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
+          repositoryId: 'folge3.nexus.release',
+          gitpush: false,
+          gitpushtag: false
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x86/kibana-<%= pkg.version %>-linux-x86/',
+        src: [ '**/*' ],
+        dest: '<%= package.name %>-<%= pkg.version %>'
+      },
+      releaseWindows: {
+        options: {
+          goal: 'release',
+          classifier: 'windows',
+          url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
+          repositoryId: 'folge3.nexus.release',
+          gitpush: false,
+          gitpushtag: false
+        },
+        expand: true,
+        cwd: '<%= target %>/kibana-<%= pkg.version %>-windows/kibana-<%= pkg.version %>-windows/',
         src: [ '**/*' ],
         dest: '<%= package.name %>-<%= pkg.version %>'
       }
