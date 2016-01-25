@@ -83,7 +83,6 @@ module.exports = function (grunt) {
     maven: {
       options: {
         groupId: 'org.reshin.kibana',
-        artifactId: '<%= package.name %>',
         version: '<%= pkg.version %>',
         packaging: 'zip',
         injectDestFolder: false
@@ -91,7 +90,7 @@ module.exports = function (grunt) {
       installOsX: {
         options: {
           goal: 'install',
-          classifier: 'darwin-x64'
+          artifactId: '<%= package.name %>-darwin-x64'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-darwin-x64/kibana-<%= pkg.version %>-darwin-x64/',
@@ -101,7 +100,7 @@ module.exports = function (grunt) {
       installLinuxx64: {
         options: {
           goal: 'install',
-          classifier: 'linux-x64'
+          artifactId: '<%= package.name %>-linux-x64'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x64/kibana-<%= pkg.version %>-linux-x64/',
@@ -111,7 +110,7 @@ module.exports = function (grunt) {
       installLinuxx86: {
         options: {
           goal: 'install',
-          classifier: 'linux-x86'
+          artifactId: '<%= package.name %>-linux-x86'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-linux-x86/kibana-<%= pkg.version %>-linux-x86/',
@@ -121,7 +120,7 @@ module.exports = function (grunt) {
       installWindows: {
         options: {
           goal: 'install',
-          classifier: 'windows'
+          artifactId: '<%= package.name %>-windows'
         },
         expand: true,
         cwd: '<%= target %>/kibana-<%= pkg.version %>-windows/kibana-<%= pkg.version %>-windows/',
@@ -131,7 +130,7 @@ module.exports = function (grunt) {
       deployOsX: {
         options: {
           goal: 'deploy',
-          classifier: 'darwin-x64',
+          artifactId: '<%= package.name %>-darwin-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
           repositoryId: 'folge3.nexus.snapshot'
         },
@@ -143,7 +142,7 @@ module.exports = function (grunt) {
       deployLinuxx64: {
         options: {
           goal: 'deploy',
-          classifier: 'linux-x64',
+          artifactId: '<%= package.name %>-linux-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
           repositoryId: 'folge3.nexus.snapshot'
         },
@@ -155,7 +154,7 @@ module.exports = function (grunt) {
       deployLinuxx86: {
         options: {
           goal: 'deploy',
-          classifier: 'linux-x86',
+          artifactId: '<%= package.name %>-linux-x86',
           url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
           repositoryId: 'folge3.nexus.snapshot'
         },
@@ -167,7 +166,7 @@ module.exports = function (grunt) {
       deployWindows: {
         options: {
           goal: 'deploy',
-          classifier: 'windows',
+          artifactId: '<%= package.name %>-windows',
           url: 'http://nexus.folge3.de/nexus/content/repositories/snapshots',
           repositoryId: 'folge3.nexus.snapshot'
         },
@@ -179,7 +178,7 @@ module.exports = function (grunt) {
       releaseOsX: {
         options: {
           goal: 'deploy',
-          classifier: 'darwin-x64',
+          artifactId: '<%= package.name %>-darwin-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
           repositoryId: 'folge3.nexus.release'
         },
@@ -191,7 +190,7 @@ module.exports = function (grunt) {
       releaseLinuxx64: {
         options: {
           goal: 'deploy',
-          classifier: 'linux-x64',
+          artifactId: '<%= package.name %>-linux-x64',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
           repositoryId: 'folge3.nexus.release'
         },
@@ -203,7 +202,7 @@ module.exports = function (grunt) {
       releaseLinuxx86: {
         options: {
           goal: 'deploy',
-          classifier: 'linux-x86',
+          artifactId: '<%= package.name %>-linux-x86',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
           repositoryId: 'folge3.nexus.release'
         },
@@ -215,7 +214,7 @@ module.exports = function (grunt) {
       releaseWindows: {
         options: {
           goal: 'deploy',
-          classifier: 'windows',
+          artifactId: '<%= package.name %>-windows',
           url: 'http://nexus.folge3.de/nexus/content/repositories/releases',
           repositoryId: 'folge3.nexus.release'
         },
