@@ -26,10 +26,13 @@
       <ul class="nav navbar-nav" role="navigation">
         <li
           ng-if="chrome.getBrand('logo')"
-          ng-style="{ 'background': chrome.getBrand('logo') }"
           aria-label="{{ chrome.getAppTitle() }} Logo"
           class="logo hidden-sm"
-          ></li>
+          >
+          <a href="/" title="Home" style="padding: 0;">
+            <img alt="{{ chrome.getAppTitle() }} Logo" src="/kibana/bundles/src/ui/public/images/kibana.svg"/>
+          </a>
+        </li>
 
         <li
           ng-if="chrome.getBrand('smallLogo')"
