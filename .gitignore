@@ -23,3 +23,6 @@ selenium
 .babelcache.json
 kibana.pid
 *.zip
+*.swp
+*.swo
+

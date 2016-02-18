@@ -60,6 +60,7 @@ class UiExports {
       case 'visTypes':
       case 'fieldFormats':
       case 'spyModes':
+      case 'chromeNavControls':
         return (plugin, spec) => {
           this.aliases[type] = _.union(this.aliases[type] || [], spec);
         };
@@ -85,11 +86,7 @@ class UiExports {
 
     return _.chain(patterns)
     .map(function (pattern) {
-      var matches = names.filter(matcher(pattern));
-      if (!matches.length) {
-        throw new Error('Unable to find uiExports for pattern ' + pattern);
-      }
-      return matches;
+      return names.filter(matcher(pattern));
     })
     .flattenDeep()
     .reduce(function (found, name) {

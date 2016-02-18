@@ -10,6 +10,9 @@ server.host: "127.0.0.1"
 # specify that path here. The basePath can't end in a slash.
 server.basePath: "/kibana"
 
+# The maximum payload size in bytes on incoming server requests.
+# server.maxPayloadBytes: 1048576
+
 # The Elasticsearch instance to use for all your queries.
 elasticsearch.url: "http://localhost:9006/kibana/elasticsearch"
 
