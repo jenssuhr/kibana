@@ -45,6 +45,9 @@ define(function (require) {
             }
 
             var timeBounds = timefilter.getBounds();
+            if (fetchParams.bounds) {
+              timeBounds = fetchParams.bounds;
+            }
             return indexList.toIndexList(timeBounds.min, timeBounds.max);
           })
           .then(function (indexList) {

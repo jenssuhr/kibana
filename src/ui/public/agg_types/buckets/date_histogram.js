@@ -21,7 +21,7 @@ define(function (require) {
     function setBounds(agg, force) {
       if (agg.buckets._alreadySet && !force) return;
       agg.buckets._alreadySet = true;
-      agg.buckets.setBounds(agg.fieldIsTimeField() && timefilter.getActiveBounds());
+      agg.buckets.setBounds(agg.fieldIsTimeField() && agg.vis.vistime.getActiveBounds());
     }
 
     require('ui/filters/field_type');

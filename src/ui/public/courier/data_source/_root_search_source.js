@@ -8,7 +8,11 @@ define(function (require) {
     globalSource.inherits(false); // this is the final source, it has no parents
     globalSource.filter(function (globalSource) {
       // dynamic time filter will be called in the _flatten phase of things
-      return timefilter.get(globalSource.get('index'));
+      if (globalSource.vistime) {
+        return globalSource.vistime.getTimeRange();
+      } else {
+        return timefilter.get(globalSource.get('index'));
+      }
     });
 
     var appSource; // set in setAppSource()

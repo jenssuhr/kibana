@@ -6,6 +6,7 @@ define(function (require) {
     require('ui/visualize/spy');
     require('ui/visualize/visualize.less');
     require('ui/visualize/visualize_legend');
+    require('plugins/vis_timefilter/vis_timefilter_selection');
 
     var $ = require('jquery');
     var _ = require('lodash');
@@ -43,6 +44,7 @@ define(function (require) {
 
         var getVisEl = getter('.visualize-chart');
         var getVisContainer = getter('.vis-container');
+        var getTimefilterEl = getter('.kbn-vis-timefilter-selection');
 
         // Show no results message when isZeroHits is true and it requires search
         $scope.showNoResultsMessage = function () {
@@ -60,8 +62,10 @@ define(function (require) {
         var applyClassNames = function () {
           var $visEl = getVisContainer();
           var fullSpy = ($scope.spy.mode && ($scope.spy.mode.fill || $scope.fullScreenSpy));
+          var $timefilterEl = getTimefilterEl();
 
           $visEl.toggleClass('spy-only', Boolean(fullSpy));
+          $timefilterEl.toggleClass('spy-visible', Boolean($scope.spy.mode));
 
           $timeout(function () {
             if (shouldHaveFullSpy()) {
@@ -112,6 +116,25 @@ define(function (require) {
         $scope.$watchCollection('spy.mode', function () {
           $scope.fullScreenSpy = shouldHaveFullSpy();
           applyClassNames();
+        });
+
+        $scope.$watch('vis.vistime.watchCounter', function () {
+          // Pass reference of vis timehandler to searchSource.
+          // It would be probably enough to do this once when the
+          // searchSource is created but since I don't know where
+          // this happens we assign the same reference in every
+          // watch call.
+          // TODO assert that this does not trigger the watcher on
+          // 'searchSource'...
+          if ($scope.searchSource && $scope.vis) {
+            $scope.searchSource.vistime = $scope.vis.vistime;
+          }
+
+          if (typeof $scope.$parent.fetch === 'function') {
+            $scope.$parent.fetch();
+          } else if (typeof $scope.$parent.refresh === 'function') {
+            $scope.$parent.refresh();
+          }
         });
 
         $scope.$watch('vis', prereq(function (vis, oldVis) {

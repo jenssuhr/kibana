@@ -1,0 +1,74 @@
+<li class="sidebar-item">
+
+  <div class="sidebar-item-title">
+    timefilter settings
+  </div>
+
+  <div class="visualization-vis-timefilter-settings visualization-options">
+    <div>
+      <label>
+        <input type="checkbox" value="{{vis.params.timeSets.showUi}}" ng-model="vis.params.timeSets.showUi" name="showUi" ng-checked="vis.params.timeSets.showUi"> Show UI
+      </label>
+    </div>
+    <div class="editor-vis-timefilter-timeset" ng-repeat="timeset in available()">
+      <div class="vis-editor-agg-header">
+
+        <!-- open/close editor -->
+        <button ng-click="timeset.editorOpen = !timeset.editorOpen" type="button" class="btn btn-xs vis-editor-agg-header-toggle">
+          <i ng-class="{ 'fa-caret-down': timeset.editorOpen, 'fa-caret-right': !timeset.editorOpen }" class="fa fa-caret-right"></i>
+        </button>
+
+        <!-- title -->
+        <span class="vis-editor-agg-header-title ng-binding">
+	      {{timeset.label}}
+	    </span>
+
+        <!-- controls !!!actually disabling buttons will break tooltips¡¡¡ -->
+        <div class="vis-editor-agg-header-controls btn-group">
+          <button ng-if="availableCount() &gt; 1" ng-class="{ disabled: $first }" ng-click="moveUp($index)" tooltip="Increase Priority" tooltip-append-to-body="true" type="button" class="btn btn-xs btn-default ng-scope disabled">
+            <i class="fa fa-caret-up"></i>
+          </button>
+
+          <!-- down button -->
+          <button ng-if="availableCount() &gt; 1" ng-class="{ disabled: $last }" ng-click="moveDown($index)" tooltip="Decrease Priority" tooltip-append-to-body="true" type="button" class="btn btn-xs btn-default ng-scope">
+            <i class="fa fa-caret-down"></i>
+          </button>
+
+          <!-- remove button -->
+          <button ng-click="remove($index)" tooltip="Remove Timeset" tooltip-append-to-body="true" type="button" class="btn btn-xs btn-danger ng-scope">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="form-group" ng-show="timeset.editorOpen">
+        <div>
+          <label class="small">Label: <span ng-show="!timeset.label"><i>Invalid Label</i></span>
+          </label>
+          <input type="text" required class="form-control" ng-model="timeset.label">
+        </div>
+        <div>
+          <label class="small">From: <span ng-show="!timeset.from"><i>Invalid Date</i></span>
+          </label>
+          <input type="text" required class="form-control" ng-model="timeset.from">
+        </div>
+        <div>
+          <label class="small">To: <span ng-show="!timeset.to"><i>Invalid Date</i></span>
+          </label>
+          <input type="text" required class="form-control" ng-model="timeset.to">
+        </div>
+        <div>
+          <label class="small">Interval: <span ng-show="!timeset.interval"><i>Invalid Interval</i></span>
+          </label>
+          <input type="text" required class="form-control" ng-model="timeset.interval">
+        </div>
+        <div>
+          <label>
+            <input type="checkbox" value="{{timeset.showInitially}}" ng-model="timeset.showInitially" name="isShowInitially" ng-checked="timeset.showInitially"> Show initially
+          </label>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <button class="vis-editor-agg-wide-btn btn btn-xs btn-default ng-scope" ng-click="addTimeset()"><i class="fa fa-plus"></i> Add another timeset</a>
+  </div>
+</li>

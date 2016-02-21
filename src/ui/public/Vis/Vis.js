@@ -5,6 +5,8 @@ define(function (require) {
     var visTypes = Private(require('ui/registry/vis_types'));
     var AggConfigs = Private(require('ui/Vis/AggConfigs'));
 
+    var VisTimefilterHandler = Private(require('plugins/vis_timefilter/vis_timefilter_handler'));
+
     var notify = new Notifier({
       location: 'Vis'
     });
@@ -22,6 +24,10 @@ define(function (require) {
 
       // http://aphyr.com/data/posts/317/state.gif
       this.setState(state);
+
+      this.localtime = null;
+      this.vistime = new VisTimefilterHandler(this.indexPattern);
+      this.vistime.initWithParams(this.params);
     }
 
     Vis.convertOldState = function (type, oldState) {
@@ -75,6 +81,10 @@ define(function (require) {
         _.cloneDeep(state.params || {}),
         _.cloneDeep(this.type.params.defaults || {})
       );
+
+      if (this.params.timeSets) {
+        this.params.timeSets = _.clone(this.params.timeSets, true);
+      }
 
       this.aggs = new AggConfigs(this, state.aggs);
     };
