@@ -17,7 +17,6 @@ define(function (require) {
      */
     function VisTimefilterHandler(indexPattern) {
       this.indexPattern = indexPattern;
-      this.localtime = null;
       this.from = null;
       this.to = null;
       this.interval = null;
@@ -30,7 +29,6 @@ define(function (require) {
      */
     VisTimefilterHandler.prototype._setTime = function (from, to, interval) {
       if (this.from !== from || this.to !== to || this.interval !== interval) {
-
         this.from = this._toTicks(from);
         this.to = this._toTicks(to);
         this.interval = interval;
@@ -150,8 +148,8 @@ define(function (require) {
     /**
      * Init with visualization params.
      *
-     * Searches for a localtime set with "showInitially == true".
-     * If one is found, the localtime is set to the values from this set.
+     * Searches for a time set with "showInitially == true".
+     * If one is found, the vis time is set to the values from this set.
      */
     VisTimefilterHandler.prototype.initWithParams = function (visParams) {
       var self = this;
@@ -207,7 +205,7 @@ define(function (require) {
       if (set) {
         if (this.isSelected(set, visParams)) {
           this._clearTime();
-          var sets = visParams.localtimeSets;
+          var sets = visParams.timeSets;
           sets.selected = null;
         }
         avail.splice(ix, 1);
@@ -237,22 +235,22 @@ define(function (require) {
       if (!text) return undefined;
 
       if (moment.isMoment(text)) {
-        return text.valueOf();
+        return text.format();
       }
       if (_.isDate(text)) {
-        return text.valueOf();
+        return text.format();
       }
 
       // parse ISO format
       var m = moment(text);
       if (m.isValid()) {
-        return m.valueOf();
+        return m.format();
       }
 
       // parse datemath
       m = datemath.parse(text);
       if (m && m.isValid()) {
-        return m.valueOf();
+        return m.format();
       }
 
     };

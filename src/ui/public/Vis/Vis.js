@@ -25,7 +25,6 @@ define(function (require) {
       // http://aphyr.com/data/posts/317/state.gif
       this.setState(state);
 
-      this.localtime = null;
       this.vistime = new VisTimefilterHandler(this.indexPattern);
       this.vistime.initWithParams(this.params);
     }

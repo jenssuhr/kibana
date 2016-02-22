@@ -44,7 +44,6 @@ define(function (require) {
 
         var getVisEl = getter('.visualize-chart');
         var getVisContainer = getter('.vis-container');
-        var getTimefilterEl = getter('.kbn-vis-timefilter-selection');
 
         // Show no results message when isZeroHits is true and it requires search
         $scope.showNoResultsMessage = function () {
@@ -62,10 +61,8 @@ define(function (require) {
         var applyClassNames = function () {
           var $visEl = getVisContainer();
           var fullSpy = ($scope.spy.mode && ($scope.spy.mode.fill || $scope.fullScreenSpy));
-          var $timefilterEl = getTimefilterEl();
 
           $visEl.toggleClass('spy-only', Boolean(fullSpy));
-          $timefilterEl.toggleClass('spy-visible', Boolean($scope.spy.mode));
 
           $timeout(function () {
             if (shouldHaveFullSpy()) {
